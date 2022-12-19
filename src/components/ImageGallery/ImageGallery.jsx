@@ -11,20 +11,16 @@ export class ImageGallery extends Component {
     modal: false,
   }
 
-  // query = this.props.query;
-
-
-
-
-  // fetchImages(query);
 
   render() {
-    const images = this.props.images.hits;
+    const images = this.props.images;
+    // const page = this.props.page;
     console.log(images);
+    // console.log(page);
 
     return (
       <>
-      {images && <GalleryItem images={images}></GalleryItem> }
+      {images.length > 0 && <GalleryItem images={images}></GalleryItem> }
       </>
     )
   };

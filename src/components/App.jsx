@@ -7,19 +7,29 @@ import {ImageGallery} from "./ImageGallery/ImageGallery";
 export class App extends Component {
 
 state = {
-  query: '',
+  query: 'motorcycles',
   queryResponse: {},
+  page: 1,
+  totalPages: '',
 }
 
+componentDidMount() {
+  // const query = this.state.query;
+  // console.log(query);
+  // console.log(this.state.query);
+  this.fetchImages(this.state.query, this.state.page);
+}
 
-  fetchImages = async (query) => {
+  fetchImages = async (query, page) => {
     console.log('test');
     console.log(query);
-    const images = await getImages(query);
+    const images = await getImages(query, page);
     console.log(images);
     this.setState({
-      queryResponse: images,
+      queryResponse: images.hits,
       query:query,
+      page: page,
+      totalPages: images.totalHits,
     })
 
   }
@@ -29,7 +39,7 @@ render() {
     <Div>
 
       <Searchbar onSubmit={this.fetchImages}></Searchbar>
-      <ImageGallery images={this.state.queryResponse}>IG</ImageGallery>
+      <ImageGallery images={this.state.queryResponse}></ImageGallery>
 
     </Div>
   );

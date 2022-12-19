@@ -8,7 +8,7 @@ export const SearchForm = ({onSubmit}) => {
   const onFormicSubmit = (values, {resetForm}) => {
     console.log(values.query);
     console.log(typeof onSubmit);
-    onSubmit(values.query);
+    onSubmit(values.query, 1);
     resetForm();
   }
 
