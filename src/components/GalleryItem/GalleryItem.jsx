@@ -8,7 +8,7 @@ export const GalleryItem = ({images}) => {
     <Ul>
     {images.map(image => (
       <Li key={image.id}>
-        <Img src={image.previewURL} alt={image.tags}></Img>
+        <Img src={image.webformatURL} alt={image.tags}></Img>
       </Li>
       ))}
     </Ul>
