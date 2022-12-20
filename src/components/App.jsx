@@ -4,6 +4,8 @@ import {Div} from "./App.styled";
 import {getImages} from "../services/fetchApi";
 import {ImageGallery} from "./ImageGallery/ImageGallery";
 
+
+
 export class App extends Component {
 
 state = {
@@ -111,6 +113,7 @@ render() {
     <Div>
 
       <Searchbar onSubmit={this.searchOnQuery}></Searchbar>
+
       <ImageGallery
         images={this.state.queryResponse}
         page={this.state.page}
