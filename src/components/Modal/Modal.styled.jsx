@@ -14,7 +14,7 @@ background-color: rgba(0, 0, 0, 0.5);
 
 export const ModalContent = styled.div`
   //visibility: hidden;
-  opacity: ${props => props.opacity ? 1 : 0};
+  opacity: ${props => props.opacityValue ? 1 : 0};
   position: absolute;
   top: 55%;
   left: 50%;
@@ -31,16 +31,17 @@ export const ModalContent = styled.div`
   border-radius: 3px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.25s;
 `;
 
 export const ModalLoader = styled.div`
   position: absolute;
   top: 55%;
-  left: 50%;
+  left: 55%;
   transform: translate(-50%, -50%);
   //min-height: 70%;
   //max-height: 747px;
-  max-width: 200px;
+  max-width: 500px;
   width: 100%;
   //object-fit: cover;
   padding: 0;

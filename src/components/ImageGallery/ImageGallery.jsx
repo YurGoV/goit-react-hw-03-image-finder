@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-// import {Ul} from "./ImageGallery.styled";
+import {Ul} from "./ImageGallery.styled";
 // import {getImages} from "../../services/fetchApi";
 import {GalleryItem} from "../GalleryItem/GalleryItem";
 import {Button} from "../Button/Button";
@@ -12,7 +12,36 @@ import {Gallery} from "./ImageGallery.styled";
 export class ImageGallery extends Component {
 
   state = {
-    modal: false,
+    modal: true,
+    // imagesLengths: 0,
+  }
+
+  componentDidMount() {
+    console.log('Gallery Mounted');
+    // this.setState({
+    //   imagesLengths: this.props.images.length,
+    // })
+    // this.modalStatus(true);
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('Gallery Updated');
+    console.log(prevState);
+    console.log(this.state);
+    console.log(prevProps.images.length);
+    console.log(this.props.images.length);
+
+
+    if (prevState === this.state) {
+      console.log('gallery updated WITHOUT state change');
+      this.modalStatus(true);
+    } else  {
+      console.log('gallery updated BY state change')
+    }
+    // this.modalStatus(true);
+
+
   }
 
   modalStatus = (value) => {//todo: refactoring
@@ -34,6 +63,9 @@ export class ImageGallery extends Component {
   closeModal = () => {
     this.modalStatus(false);
   }
+  onImagesLoad = () => {
+    console.log('IMGsss');
+  }
 
   render() {
     const images = this.props.images;
@@ -45,11 +77,13 @@ export class ImageGallery extends Component {
 
     return (
       <Gallery onClick={this.onClick}>
-
+      <Ul>
 
         {modal && <Modal value={this.state.modal} closeModal={this.closeModal}></Modal>}
       {images.length > 0 &&
         <GalleryItem images={images} modalStatus={this.modalStatus}></GalleryItem> }
+
+      </Ul>
         {page < pages && <Button page={page} loadMore={this.props.loadMore}></Button>}
       </Gallery>
     )
