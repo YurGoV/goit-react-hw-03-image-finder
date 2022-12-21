@@ -5,6 +5,7 @@ import {GalleryItem} from "../GalleryItem/GalleryItem";
 import {Button} from "../Button/Button";
 import Modal from "../Modal/Modal";
 import {Gallery} from "./ImageGallery.styled";
+// import {Loader} from "../Loader/Loader";
 
 
 
@@ -44,6 +45,7 @@ export class ImageGallery extends Component {
 
     return (
       <Gallery onClick={this.onClick}>
+
 
         {modal && <Modal value={this.state.modal} closeModal={this.closeModal}></Modal>}
       {images.length > 0 &&
