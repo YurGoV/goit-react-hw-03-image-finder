@@ -3,6 +3,7 @@ import {Searchbar} from "./Searchbar/Searchbar";
 import {Div} from "./App.styled";
 import {getImages} from "../services/fetchApi";
 import {ImageGallery} from "./ImageGallery/ImageGallery";
+// import {Loader} from "./Loader/Loader";
 
 
 
@@ -13,6 +14,7 @@ state = {
   queryResponse: [],
   page: 1,
   totalImages: 0,
+  loader: true,//todo:
 }
 
 async componentDidMount() {
@@ -83,14 +85,17 @@ async componentDidUpdate( prevProps, prevState) {
     console.log('test');
     console.log(query);
     console.log(this.state.queryResponse);
-    const images = await getImages(query, page);
-    console.log(images);
 
-    // return this.setState({
-    //   query: query,
-    //   totalImages: images.totalHits,
-    //   totalImages: images.totalHits,
-    // })
+    if (!this.state.loader) {
+      this.loaderLoad(true);
+    }
+
+    const images = await getImages(query, page);
+
+    console.log(images);
+    console.log('iiiii');
+
+    this.loaderLoad(false);
 
     return await images;
   }
@@ -108,17 +113,28 @@ async componentDidUpdate( prevProps, prevState) {
     })
   }
 
+  loaderLoad = (status) => {
+  this.setState({
+    loader: status,
+  })
+  }
+
+  // loader={this.state.loader}
+  // loaderLoad={this.loaderLoad}
+
 render() {
   return (
     <Div>
 
-      <Searchbar onSubmit={this.searchOnQuery}></Searchbar>
+
+      <Searchbar onSubmit={this.searchOnQuery} loader={this.state.loader}></Searchbar>
 
       <ImageGallery
         images={this.state.queryResponse}
         page={this.state.page}
         totalImages={this.state.totalImages}
         loadMore={this.loadMore}>
+
         </ImageGallery>
 
     </Div>

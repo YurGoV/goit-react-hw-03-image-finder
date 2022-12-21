@@ -1,12 +1,18 @@
 import React, {Component} from "react";
-import {Backdrop, ModalContent} from "./Modal.styled";
+import {Backdrop, ModalContent, ModalLoader} from "./Modal.styled";
 import { createPortal } from 'react-dom';
+import {Loader} from "../Loader/Loader";
 
 
 const modalRoot = document.querySelector('#modal-root');
 console.log(modalRoot);
 
-export default class Modal extends Component {
+export default class Modal extends Component {//todo - переписати на функцію?
+
+  state = {
+    modalLoader: true,
+    imageOpacity: false,
+  }
 
   componentDidMount() {
     console.log('Modal componentDidMount');
@@ -33,6 +39,7 @@ export default class Modal extends Component {
 
     console.log('currentTarget: ', event.currentTarget);
     console.log('target: ', event.target);
+    console.log(event.target);
 
 
     if (event.currentTarget === event.target) {
@@ -40,15 +47,37 @@ export default class Modal extends Component {
     }
   };
 
+  onImgLoaded = () => {
+    console.log('load')
+
+    this.setState({
+      modalLoader: false,
+      imageOpacity: true,
+    })
+  }
+
   imgLink = this.props.value.link
   imgAlt = this.props.value.alt
-  // console.log(imgLink);
+  imgTest = this.props.dataset
+
+
 
   render() {
+    console.log(this.imgLink);
+    console.dir(this.imgTest);
+    console.log(this.imgAlt);
+    console.log(this.state.imageOpacity);
+
     return createPortal(
       <Backdrop onClick={this.onBackdropClick}>
-        <ModalContent><img src={this.imgLink} alt={this.imgAlt} /></ModalContent>
-      </Backdrop>,
+        <div>
+
+        <ModalContent opacity={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
+          <ModalLoader>
+            <Loader loader={this.state.modalLoader}></Loader>
+          </ModalLoader>
+        </div>
+        </Backdrop>,
       modalRoot,
     )
   }
