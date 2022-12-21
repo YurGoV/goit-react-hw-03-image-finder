@@ -11,7 +11,7 @@ export default class Modal extends Component {//todo - переписати на
 
   state = {
     modalLoader: true,
-    imageOpacity: false,
+    imageOpacity: 0,
   }
 
   componentDidMount() {
@@ -72,7 +72,7 @@ export default class Modal extends Component {//todo - переписати на
       <Backdrop onClick={this.onBackdropClick}>
         <div>
 
-        <ModalContent opacity={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
+        <ModalContent opacityValue={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
           <ModalLoader>
             <Loader loader={this.state.modalLoader} size={250}></Loader>
           </ModalLoader>

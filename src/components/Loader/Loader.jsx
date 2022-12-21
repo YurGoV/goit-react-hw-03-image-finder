@@ -7,7 +7,7 @@ export const Loader = ({loader, size=50}) => {
       <Rings
         height={size}
         width={size}
-        color="#4fa94d"
+        color="#3f51b5"
         radius="6"
         wrapperStyle={{}}
         wrapperClass=""

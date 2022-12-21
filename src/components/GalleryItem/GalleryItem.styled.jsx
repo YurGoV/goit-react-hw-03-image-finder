@@ -12,6 +12,7 @@ export const Ul = styled.ul`
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+  //opacity: 0;
 `;
 
 export const Li = styled.li`

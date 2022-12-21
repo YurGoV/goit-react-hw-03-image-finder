@@ -9,8 +9,10 @@ export const SearchForm = ({onSubmit, loader}) => {
   const onFormicSubmit = (values, {resetForm}) => {
     console.log(values.query);
     console.log(typeof onSubmit);
-    onSubmit(values.query, 1);
-    resetForm();
+    if (values.query.trim() !== '') {
+      onSubmit(values.query, 1);
+      resetForm();
+    }
   }
 
   return (
