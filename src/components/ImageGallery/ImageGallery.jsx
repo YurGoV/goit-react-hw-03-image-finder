@@ -39,7 +39,10 @@ export class ImageGallery extends Component {
 
     if (prevState === this.state) {
       console.log('gallery updated WITHOUT state change');
-      this.modalStatus(true);
+      this.setState({
+        modal: true,
+        modalLoader: true,
+      })
     } else  {
       console.log('gallery updated BY state change')
     }
