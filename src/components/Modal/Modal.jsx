@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {Backdrop, ModalContent, ModalLoader} from "./Modal.styled";
+import {Backdrop} from "./Modal.styled";
 import { createPortal } from 'react-dom';
-import {Loader} from "../Loader/Loader";
+// import {Loader} from "../Loader/Loader";
 
 
 const modalRoot = document.querySelector('#modal-root');
@@ -47,14 +47,14 @@ export default class Modal extends Component {//todo - переписати на
     }
   };
 
-  onImgLoaded = () => {
-    console.log('load')
-
-    this.setState({
-      modalLoader: false,
-      imageOpacity: true,
-    })
-  }
+  // onImgLoaded = () => {//todo: how to move out?
+  //   console.log('load')
+  //
+  //   this.setState({
+  //     modalLoader: false,
+  //     imageOpacity: true,
+  //   })
+  // }
 
   imgLink = this.props.value.link
   imgAlt = this.props.value.alt
@@ -70,15 +70,20 @@ export default class Modal extends Component {//todo - переписати на
 
     return createPortal(
       <Backdrop onClick={this.onBackdropClick}>
-        <div>
-
-        <ModalContent opacityValue={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
-          <ModalLoader>
-            <Loader loader={this.state.modalLoader} size={250}></Loader>
-          </ModalLoader>
-        </div>
+        {/*<div>*/}
+          {this.props.children}
+        {/*</div>*/}
         </Backdrop>,
       modalRoot,
     )
   }
 }
+
+/*
+
+<ModalContent opacityValue={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
+<ModalLoader>
+  <Loader loader={this.state.modalLoader} size={250}></Loader>
+</ModalLoader>
+
+*/
