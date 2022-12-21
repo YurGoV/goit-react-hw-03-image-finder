@@ -2,19 +2,21 @@ import styled from '@emotion/styled';
 
 
 export const Backdrop = styled.div`
+  display: flex;
 position: fixed;
 top: 0;
 left: 0;
-width: 100vw;
-height: 100vh;
+width: 100%;
+height: 100%;
 background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
 ` ;
-
 
 
 export const ModalContent = styled.div`
   //visibility: hidden;
-  opacity: ${props => props.opacityValue ? 1 : 0};
+  opacity: ${props => props.opacityValue === 0 ? 0 : 1};
   position: absolute;
   top: 55%;
   left: 50%;
@@ -25,7 +27,7 @@ export const ModalContent = styled.div`
   width: 100%;
   //object-fit: cover;
   padding: 1px;
-  background-color: grey;
+  background-color: white;
   //background-color: background: rgba(0,0,0,0.5);
   border: 1px solid #3f51b5;
   border-radius: 3px;

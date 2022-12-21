@@ -1,15 +1,15 @@
 import React from "react";
 import {ButtonStyled} from "./Button.styled";
 
-export const Button = ({page, loadMore}) => {
+export const Button = ({loadMore}) => {
 
-  const onLoadMoreClick = () => {
-    console.log('loadmoreclick');
-    console.log(page);
-    loadMore(page +1);
-  }
+  // const onLoadMoreClick = () => {
+  //   console.log('loadmoreclick');
+  //   console.log(page);
+  //   loadMore(page +1);
+  // }
 
   return (
-    <ButtonStyled onClick={onLoadMoreClick}>Load More</ButtonStyled>
+    <ButtonStyled onClick={loadMore}>Load More</ButtonStyled>
   )
 }
