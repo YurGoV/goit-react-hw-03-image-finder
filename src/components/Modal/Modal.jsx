@@ -74,7 +74,7 @@ export default class Modal extends Component {//todo - переписати на
 
         <ModalContent opacity={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
           <ModalLoader>
-            <Loader loader={this.state.modalLoader}></Loader>
+            <Loader loader={this.state.modalLoader} size={250}></Loader>
           </ModalLoader>
         </div>
         </Backdrop>,
