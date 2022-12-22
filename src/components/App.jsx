@@ -4,6 +4,10 @@ import {Div} from "./App.styled";
 import {getImages} from "../services/fetchApi";
 import {ImageGallery} from "./ImageGallery/ImageGallery";
 
+
+import {ToastContainer, Zoom} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 // import {Loader} from "./Loader/Loader";
 
 
@@ -175,7 +179,12 @@ export class App extends Component {
           fetchError={this.state.fetchError}
         >
         </ImageGallery>
-
+        <ToastContainer
+          autoClose={2000}
+          position="top-center"
+          theme="light"
+          transition={Zoom}
+        />
       </Div>
     );
   };

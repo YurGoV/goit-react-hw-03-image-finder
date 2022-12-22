@@ -14,6 +14,8 @@ import {ButtonStyled} from "./ImageGallery.styled";
 // import {ToastifyMessage} from "../ToastNotify/ToastNotify";
 import {Message} from "./Messages";
 
+// import {toast} from "react-toastify";
+
 
 
 export class ImageGallery extends Component {
@@ -147,6 +149,8 @@ export class ImageGallery extends Component {
         return false;
       }
     } ;
+
+
 
     const pages = Math.ceil(this.props.totalImages / 12);
     const {modal} = this.state;

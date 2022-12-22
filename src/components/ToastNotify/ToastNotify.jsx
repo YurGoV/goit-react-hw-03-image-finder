@@ -12,7 +12,6 @@ export const ToastifyMessage = (note) => {
       <ToastContainer
         position="top-center"
         autoClose={2000}
-        limit={1}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
