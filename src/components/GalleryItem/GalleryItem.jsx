@@ -11,7 +11,11 @@ export const GalleryItem = ({images, modalStatus}) => {
   const totalImages = images.length;
   let loadedImages = 0;
   let newImages = 0;
+
+
+
   const onImagesLoad = () => {
+
     if (images.length > 12) {
       console.log('more 12');
       newImages = images.length - (Math.floor(totalImages/12) - 1) * 12;
@@ -22,7 +26,7 @@ export const GalleryItem = ({images, modalStatus}) => {
       newImages = images.length;
     }
     loadedImages += 1;
-    console.log('img to load: ', newImages);
+    console.log('imgs to load: ', newImages);
     console.log(loadedImages);
     if (loadedImages === newImages) {
       console.log('all images Loaded');

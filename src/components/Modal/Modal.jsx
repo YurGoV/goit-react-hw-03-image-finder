@@ -7,12 +7,30 @@ import { createPortal } from 'react-dom';
 const modalRoot = document.querySelector('#modal-root');
 console.log(modalRoot);
 
-export default class Modal extends Component {//todo - переписати на функцію?
 
-  state = {
-    modalLoader: true,
-    imageOpacity: 0,
+/*
+export const Modal = () => {
+  render ()
+  {
+    return createPortal(
+      <Backdrop>
+        {/!*<div>*!/}
+        <p>LALALA</p>
+        {this.props.children}
+        {/!*</div>*!/}
+      </Backdrop>,
+      modalRoot,
+    )
   }
+}*/
+
+
+export class Modal extends Component {
+
+  // state = {
+  //   modalLoader: true,
+  //   imageOpacity: 0,
+  // }
 
   componentDidMount() {
     console.log('Modal componentDidMount');
@@ -47,26 +65,18 @@ export default class Modal extends Component {//todo - переписати на
     }
   };
 
-  // onImgLoaded = () => {//todo: how to move out?
-  //   console.log('load')
-  //
-  //   this.setState({
-  //     modalLoader: false,
-  //     imageOpacity: true,
-  //   })
-  // }
 
-  imgLink = this.props.value.link
-  imgAlt = this.props.value.alt
-  imgTest = this.props.dataset
+  // imgLink = this.props.value.link
+  // imgAlt = this.props.value.alt
+  // imgTest = this.props.dataset
 
 
 
   render() {
-    console.log(this.imgLink);
-    console.dir(this.imgTest);
-    console.log(this.imgAlt);
-    console.log(this.state.imageOpacity);
+    // console.log(this.imgLink);
+    // console.dir(this.imgTest);
+    // console.log(this.imgAlt);
+    // console.log(this.state.imageOpacity);
 
     return createPortal(
       <Backdrop onClick={this.onBackdropClick}>
