@@ -11,7 +11,7 @@ export class App extends Component {
 
   state = {
     query: 'motorcycles',
-    queryResponse: [],
+    queryResponse: NaN,
     page: 1,
     totalImages: 0,
     loader: true,//todo:
