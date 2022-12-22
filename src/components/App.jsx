@@ -3,82 +3,121 @@ import {Searchbar} from "./Searchbar/Searchbar";
 import {Div} from "./App.styled";
 import {getImages} from "../services/fetchApi";
 import {ImageGallery} from "./ImageGallery/ImageGallery";
-// import {Loader} from "./Loader/Loader";
 
+// import {Loader} from "./Loader/Loader";
 
 
 export class App extends Component {
 
-state = {
-  query: 'motorcycles',
-  queryResponse: [],
-  page: 1,
-  totalImages: 0,
-  loader: true,//todo:
-}
+  state = {
+    query: 'motorcycles',
+    queryResponse: [],
+    page: 1,
+    totalImages: 0,
+    loader: true,//todo:
+    fetchError: NaN,
+  }
 
-async componentDidMount() {
-  // const query = this.state.query;
-  // console.log(query);
-  // console.log(this.state.query);
-  // this.setState({
-  //   query: [],
-  // })
-  const response = await this.fetchImages(this.state.query, this.state.page);
-  console.log(await response);
+  async componentDidMount() {
+    // const query = this.state.query;
+    // console.log(query);
+    // console.log(this.state.query);
+    // this.setState({
+    //   query: [],
+    // })
 
-  this.setState({
-    queryResponse: response.hits,
-    totalImages: response.totalHits,
-  })
-
-  // .then(console.log(images));
-}
-
-/*
-
-=========
-  const newImagesArr = () => {
-    if (this.state.page === 1) {
-      return images.hits;
+    try {
+      const response = await this.fetchImages(this.state.query, this.state.page);
+      console.log(await response);
+      if (response.hits.length > 0) {// todo: зайве? перевірити
+        this.setState({
+          queryResponse: response.hits,
+          totalImages: response.totalHits,
+        })
+      }
+    } catch (error) {
+      this.setState({
+        fetchError: error,
+      })
+    } finally {
+      this.setState({
+        loader: false,
+      })
     }
-    return [...this.state.queryResponse, ...images.hits]
+
+    /*
+     ==========
+     const response = await this.fetchImages(this.state.query, this.state.page);
+     console.log(await response);
+
+     if (response.hits.length > 0) {
+       this.setState({
+         queryResponse: response.hits,
+         totalImages: response.totalHits,
+       })
+     } else {
+       console.log('NO IMAGES OIN THIS QUERY');
+     }
+   */
+
+    // .then(console.log(images));
   }
 
-  this.setState({
-                  queryResponse: newImagesArr(),
-  query:query,
-  page: page,
-  totalImages: images.totalHits,
-})
-======
-*/
+  /*
+
+  =========
+    const newImagesArr = () => {
+      if (this.state.page === 1) {
+        return images.hits;
+      }
+      return [...this.state.queryResponse, ...images.hits]
+    }
+
+    this.setState({
+                    queryResponse: newImagesArr(),
+    query:query,
+    page: page,
+    totalImages: images.totalHits,
+  })
+  ======
+  */
 
 
-async componentDidUpdate( prevProps, prevState) {
-  console.log(prevState.page);
-  console.log(this.state.page);
+  async componentDidUpdate(prevProps, prevState) {
+    console.log(prevState.page);
+    console.log(this.state.page);
 
-  console.log(prevState.query);
-  console.log(this.state.query);
+    console.log(prevState.query);
+    console.log(this.state.query);
 
-  if (this.state.query !== prevState.query) {
-    console.log('nEW QUERY');
-    const response = await this.fetchImages(this.state.query, this.state.page);
-    return this.setState({
-      queryResponse: response.hits,
-      totalImages: response.totalHits,
-    })
-  }
-  if (this.state.query === prevState.query && this.state.page !== prevState.page) {
-    const response = await this.fetchImages(this.state.query, this.state.page);
-    // const newImagesArr = () => {
+    if (this.state.query !== prevState.query) {
+      console.log('nEW QUERY');
+      const response = await this.fetchImages(this.state.query, this.state.page);
+
+      // if (response.hits.length > 0) {
+      //   return this.setState({
+      //     queryResponse: response.hits,
+      //     totalImages: response.totalHits,
+      //   })
+      // } else {
+      //   console.log('NO IMAGES OIN THIS QUERY');
+      // }
+
+
+      return this.setState({
+        queryResponse: response.hits,
+        totalImages: response.totalHits,
+      })
+    }
+    if (this.state.query === prevState.query && this.state.page !== prevState.page) {
+      const response = await this.fetchImages(this.state.query, this.state.page);
+      // const newImagesArr = () => {
       return this.setState({
         queryResponse: [...this.state.queryResponse, ...response.hits],
       })
-    // }
+      // }
+    }
   }
-}
 
 
   fetchImages = async (query, page) => {
@@ -114,30 +153,30 @@ async componentDidUpdate( prevProps, prevState) {
   }
 
   loaderLoad = (status) => {
-  this.setState({
-    loader: status,
-  })
+    this.setState({
+      loader: status,
+    })
   }
 
   // loader={this.state.loader}
   // loaderLoad={this.loaderLoad}
 
-render() {
-  return (
-    <Div>
+  render() {
+    return (
+      <Div>
 
+        <Searchbar onSubmit={this.searchOnQuery} loader={this.state.loader}></Searchbar>
 
-      <Searchbar onSubmit={this.searchOnQuery} loader={this.state.loader}></Searchbar>
-
-      <ImageGallery
-        images={this.state.queryResponse}
-        page={this.state.page}
-        totalImages={this.state.totalImages}
-        loadMore={this.loadMore}>
-
+        <ImageGallery
+          images={this.state.queryResponse}
+          page={this.state.page}
+          totalImages={this.state.totalImages}
+          loadMore={this.loadMore}
+          fetchError={this.state.fetchError}
+        >
         </ImageGallery>
 
-    </Div>
-  );
-};
+      </Div>
+    );
+  };
 };
