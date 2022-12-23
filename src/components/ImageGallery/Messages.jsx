@@ -1,11 +1,8 @@
-import React from "react";
+import React from "react";//todo: в окрему папку
 import {MessageStyle} from "./Messages.styled";
 
 
 export const Message = (props) => {
-
-
-  console.log(props.children);
 
   return (
     <MessageStyle>
@@ -13,11 +10,3 @@ export const Message = (props) => {
     </MessageStyle>
   )
 }
-
-/*
-
-return (
-  <MessageStyle>
-    <p>'lalalala'</p>
-  </MessageStyle>
-)*/

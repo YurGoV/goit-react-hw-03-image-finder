@@ -8,6 +8,7 @@ export const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  //width: 100%;
   min-height: 64px;
   padding-right: 24px;
   padding-left: 24px;
@@ -22,8 +23,8 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 600px;
-    min-width: 550px;
+    max-width: 320px;
+    min-width: 200px;
     background-color: #fff;
     border-radius: 3px;
     overflow: hidden;

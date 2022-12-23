@@ -3,13 +3,10 @@ import {Searchbar} from "./Searchbar/Searchbar";
 import {Div} from "./App.styled";
 import {getImages} from "../services/fetchApi";
 import {ImageGallery} from "./ImageGallery/ImageGallery";
-
-
-import {ToastContainer, Zoom} from "react-toastify";
+import {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-// import {Loader} from "./Loader/Loader";
-
+export const perPage = 12;
 
 export class App extends Component {
 
@@ -18,27 +15,22 @@ export class App extends Component {
     queryResponse: NaN,
     page: 1,
     totalImages: 0,
-    loader: true,//todo:
-    fetchError: NaN,
+    loader: true,//todo: smallLoader
+    fetchError: '',//todo: !!!!!!!!!!!!!!!!!!!!!!!! не спрацьовує повертання на NaN - замінити початкове значення на ''.
   }
 
   async componentDidMount() {
-    // const query = this.state.query;
-    // console.log(query);
-    // console.log(this.state.query);
-    // this.setState({
-    //   query: [],
-    // })
 
     try {
-      const response = await this.fetchImages(this.state.query, this.state.page);
-      console.log(await response);
-      if (response.hits.length > 0) {// todo: зайве? перевірити
+      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
+      // console.log(await response);
+      // if (response.hits.length > 0) {// todo: зайве? перевірити
         this.setState({
           queryResponse: response.hits,
           totalImages: response.totalHits,
+          fetchError: '',
         })
-      }
+      // }
     } catch (error) {
       this.setState({
         fetchError: error,
@@ -48,95 +40,70 @@ export class App extends Component {
         loader: false,
       })
     }
-
-    /*
-     ==========
-     const response = await this.fetchImages(this.state.query, this.state.page);
-     console.log(await response);
-
-     if (response.hits.length > 0) {
-       this.setState({
-         queryResponse: response.hits,
-         totalImages: response.totalHits,
-       })
-     } else {
-       console.log('NO IMAGES OIN THIS QUERY');
-     }
-   */
-
-    // .then(console.log(images));
   }
 
-  /*
-
-  =========
-    const newImagesArr = () => {
-      if (this.state.page === 1) {
-        return images.hits;
-      }
-      return [...this.state.queryResponse, ...images.hits]
-    }
-
-    this.setState({
-                    queryResponse: newImagesArr(),
-    query:query,
-    page: page,
-    totalImages: images.totalHits,
-  })
-  ======
-  */
-
-
   async componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.page);
-    console.log(this.state.page);
-
-    console.log(prevState.query);
-    console.log(this.state.query);
+    // console.log(prevState.page);
+    // console.log(this.state.page);
+    //
+    // console.log(prevState.query);
+    // console.log(this.state.query);
 
     if (this.state.query !== prevState.query) {
-      console.log('nEW QUERY');
-      const response = await this.fetchImages(this.state.query, this.state.page);
+      try {
+      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
 
-      // if (response.hits.length > 0) {
-      //   return this.setState({
-      //     queryResponse: response.hits,
-      //     totalImages: response.totalHits,
-      //   })
-      // } else {
-      //   console.log('NO IMAGES OIN THIS QUERY');
-      // }
-
-
+      if (response.hits.length === 0) {
+        return toast('Sorry, we couldn\'t find any images according to your request :(')
+      }
       return this.setState({
         queryResponse: response.hits,
         totalImages: response.totalHits,
+        fetchError: '',
       })
+      } catch (error) {
+        this.setState({
+          fetchError: error,
+        })
+      } finally {
+        this.setState({
+          loader: false,
+        })
+      }
+
     }
     if (this.state.query === prevState.query && this.state.page !== prevState.page) {
-      const response = await this.fetchImages(this.state.query, this.state.page);
+      try {
+      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
       // const newImagesArr = () => {
       return this.setState({
         queryResponse: [...this.state.queryResponse, ...response.hits],
+        fetchError: '',
       })
-      // }
+      } catch (error) {
+        this.setState({
+          fetchError: error,
+        })
+      } finally {
+        this.setState({
+          loader: false,
+        })
+      }
     }
   }
 
-
-  fetchImages = async (query, page) => {
-    console.log('test');
-    console.log(query);
-    console.log(this.state.queryResponse);
+  fetchImages = async (query, page, perPage) => {
+    // console.log('test');
+    // console.log(query);
+    // console.log(this.state.queryResponse);
 
     if (!this.state.loader) {
       this.loaderLoad(true);
     }
 
-    const images = await getImages(query, page);
+    const images = await getImages(query, page, perPage);
 
-    console.log(images);
-    console.log('iiiii');
+    // console.log(images);
 
     this.loaderLoad(false);
 
@@ -162,9 +129,6 @@ export class App extends Component {
     })
   }
 
-  // loader={this.state.loader}
-  // loaderLoad={this.loaderLoad}
-
   render() {
     return (
       <Div>
@@ -179,6 +143,7 @@ export class App extends Component {
           fetchError={this.state.fetchError}
         >
         </ImageGallery>
+
         <ToastContainer
           autoClose={2000}
           position="top-center"
@@ -188,4 +153,4 @@ export class App extends Component {
       </Div>
     );
   };
-};
+}

@@ -1,13 +1,14 @@
 import React from "react";
 import {Img, Li} from "./GalleryItem.styled";
+import {perPage} from "../App";
 
-export const GalleryItem = ({images, modalStatus}) => {
+export const GalleryItem = ({images, onImagesLoaded}) => {
 
 
   // data-alt={image.tags}//todo: нижче- дублювання...
   // alt={image.tags}>
 
-  console.log(images);
+  // console.log(images);
   const totalImages = images.length;
   let loadedImages = 0;
   let newImages = 0;
@@ -16,25 +17,26 @@ export const GalleryItem = ({images, modalStatus}) => {
 
   const onImagesLoad = () => {
 
-    if (images.length > 12) {
-      console.log('more 12');
-      newImages = images.length - (Math.floor(totalImages/12) - 1) * 12;
-      if (newImages > 12) {
-        newImages = newImages - 12;
+    if (images.length > perPage) {
+      // console.log('more ', perPage);
+      newImages = images.length - (Math.floor(totalImages/perPage) - 1) * perPage;
+      if (newImages > perPage) {
+        newImages = newImages - perPage;
       }
     } else {
       newImages = images.length;
     }
+
     loadedImages += 1;
     console.log('imgs to load: ', newImages);
     console.log(loadedImages);
     if (loadedImages === newImages) {
       console.log('all images Loaded');
-      modalStatus(false);
+      onImagesLoaded();
     }
   }
 
-  console.log(images.length);
+  // console.log(images.length);
   return (
 <>
     {images.map(image => (
@@ -47,14 +49,11 @@ export const GalleryItem = ({images, modalStatus}) => {
           data-alt={image.tags}
           dataset={'test'}
           alt={image.tags}>
-
         </Img>
       </Li>
       ))}
   </>
-
   );
-};
 
-// image.largeImageURL
+};
 

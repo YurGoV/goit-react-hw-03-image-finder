@@ -1,36 +1,11 @@
 import React, {Component} from "react";
 import {Backdrop} from "./Modal.styled";
 import { createPortal } from 'react-dom';
-// import {Loader} from "../Loader/Loader";
-
 
 const modalRoot = document.querySelector('#modal-root');
-console.log(modalRoot);
-
-
-/*
-export const Modal = () => {
-  render ()
-  {
-    return createPortal(
-      <Backdrop>
-        {/!*<div>*!/}
-        <p>LALALA</p>
-        {this.props.children}
-        {/!*</div>*!/}
-      </Backdrop>,
-      modalRoot,
-    )
-  }
-}*/
-
+// console.log(modalRoot);
 
 export class Modal extends Component {
-
-  // state = {
-  //   modalLoader: true,
-  //   imageOpacity: 0,
-  // }
 
   componentDidMount() {
     console.log('Modal componentDidMount');
@@ -66,34 +41,13 @@ export class Modal extends Component {
   };
 
 
-  // imgLink = this.props.value.link
-  // imgAlt = this.props.value.alt
-  // imgTest = this.props.dataset
-
-
-
   render() {
-    // console.log(this.imgLink);
-    // console.dir(this.imgTest);
-    // console.log(this.imgAlt);
-    // console.log(this.state.imageOpacity);
 
     return createPortal(
       <Backdrop onClick={this.onBackdropClick}>
-        {/*<div>*/}
           {this.props.children}
-        {/*</div>*/}
         </Backdrop>,
       modalRoot,
     )
   }
 }
-
-/*
-
-<ModalContent opacityValue={this.state.imageOpacity}><img src={this.imgLink} onLoad={this.onImgLoaded} alt={this.imgAlt} /></ModalContent>
-<ModalLoader>
-  <Loader loader={this.state.modalLoader} size={250}></Loader>
-</ModalLoader>
-
-*/
