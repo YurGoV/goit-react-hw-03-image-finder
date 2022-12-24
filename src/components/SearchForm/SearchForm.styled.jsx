@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
 
-export const TestStyle = styled.form`
-color: green`;
-
-export const Button = styled.button `
-display: flex;
+export const Button = styled.button`
+  display: flex;
   width: 120px;
   height: 48px;
   border: 0;
@@ -13,18 +10,19 @@ display: flex;
   background-position: center;
   opacity: 0.5;
   cursor: pointer;
+
   &hover {
     opacity: 1;
   }
 `;
 
-export const Span = styled.span `
+export const Span = styled.span`
   display: inline-block;
   padding: 0;
   color: black;
-  `;
+`;
 
-export const Input = styled.input `
+export const Input = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
@@ -33,9 +31,10 @@ export const Input = styled.input `
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
+
   &placeholder {
     font: inherit;
     font-size: 18px;
   }
-  `;
+`;
 

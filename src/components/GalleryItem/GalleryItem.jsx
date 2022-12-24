@@ -1,6 +1,7 @@
 import React from "react";
 import {Img, Li} from "./GalleryItem.styled";
 import {perPage} from "../App";
+import PropTypes from "prop-types";
 
 export const GalleryItem = ({images, onImagesLoaded}) => {
 
@@ -9,11 +10,10 @@ export const GalleryItem = ({images, onImagesLoaded}) => {
   let newImages = 0;
 
 
-
   const onImagesLoad = () => {
 
     if (images.length > perPage) {
-      newImages = images.length - (Math.floor(totalImages/perPage) - 1) * perPage;
+      newImages = images.length - (Math.floor(totalImages / perPage) - 1) * perPage;
       if (newImages > perPage) {
         newImages = newImages - perPage;
       }
@@ -29,22 +29,27 @@ export const GalleryItem = ({images, onImagesLoaded}) => {
   }
 
   return (
-<>
-    {images.map(image => (
-      <Li key={image.id}>
-        <Img
-          src={image.webformatURL}
-          onLoad={onImagesLoad}
-          loading="lazy"
-          data-link={image.largeImageURL}
-          data-alt={image.tags}
-          dataset={'test'}
-          alt={image.tags}>
-        </Img>
-      </Li>
+    <>
+      {images.map(image => (
+        <Li key={image.id}>
+          <Img
+            src={image.webformatURL}
+            onLoad={onImagesLoad}
+            loading="lazy"
+            data-link={image.largeImageURL}
+            data-alt={image.tags}
+            dataset={'test'}
+            alt={image.tags}>
+          </Img>
+        </Li>
       ))}
-  </>
+    </>
   );
-
 };
+
+GalleryItem.propTypes = {
+  images: PropTypes.array.isRequired,
+  onImagesLoaded: PropTypes.func.isRequired,
+}
+
 

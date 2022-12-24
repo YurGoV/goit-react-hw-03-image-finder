@@ -6,9 +6,10 @@ import {Gallery} from "./ImageGallery.styled";
 import {Loader} from "../Loader/Loader";
 import {ModalContent} from "../Modal/Modal.styled";
 import {ButtonStyled} from "./ImageGallery.styled";
-import {Message} from "./Messages";
+import {Message} from "../Messages/Messages";
 import {perPage} from "../App";
 import {toast} from "react-toastify";
+import PropTypes from "prop-types";
 
 export class ImageGallery extends Component {
 
@@ -50,6 +51,7 @@ export class ImageGallery extends Component {
       }
     }
   }
+
   //
   // modalStatus = (value) => {//todo: refactoring//NO
   //   if (!value) {
@@ -141,8 +143,19 @@ export class ImageGallery extends Component {
       </>
     )
   };
-};
+}
 
+
+ImageGallery.propTypes = {
+  images: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  page: PropTypes.number.isRequired,
+  totalImages: PropTypes.number.isRequired,
+  loadMore: PropTypes.func.isRequired,
+  fetchError: PropTypes.string,
+};
 
 
 

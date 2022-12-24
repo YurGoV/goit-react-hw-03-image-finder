@@ -10,15 +10,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 
-// DONE react-tostify як повідомлення...
-// DONE обробка 0 об'єктів у відповідь
-// DONE- : обробка 404 від серверу
 
-
-// todo: може перевірку завантажень усіх імаджів в окремий файл?
-// todo:  додати пропси
-
-//DONE: perPage to constant
-// todo: рефакторінг...
 
 
