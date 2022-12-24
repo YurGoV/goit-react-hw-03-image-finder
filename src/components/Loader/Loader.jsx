@@ -1,7 +1,8 @@
 import React from "react";
-import { Rings } from  'react-loader-spinner';
+import {Rings} from 'react-loader-spinner';
+import PropTypes from "prop-types";
 
-export const Loader = ({loader, size=50}) => {
+export const Loader = ({loader, size = 50}) => {
   return (
     <div>
       <Rings
@@ -16,4 +17,9 @@ export const Loader = ({loader, size=50}) => {
       />
     </div>
   )
+}
+
+Loader.propTypes = {
+  loader: PropTypes.bool.isRequired,
+  size: PropTypes.number,
 }

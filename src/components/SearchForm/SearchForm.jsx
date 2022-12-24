@@ -1,9 +1,9 @@
 import React from "react";
 import {Formik, Form, Field} from 'formik';
-import {Button, Input, Span } from "./SearchForm.styled";
+import {Button, Input, Span} from "./SearchForm.styled";
 import {Loader} from "../Loader/Loader";
 import {toast} from "react-toastify";
-
+import PropTypes from "prop-types";
 
 export const SearchForm = ({onSubmit, loader}) => {
 
@@ -12,8 +12,8 @@ export const SearchForm = ({onSubmit, loader}) => {
       return toast('please input what you want to find')
     }
 
-      onSubmit(values.query, 1);
-      resetForm();
+    onSubmit(values.query, 1);
+    resetForm();
   }
 
   return (
@@ -23,7 +23,7 @@ export const SearchForm = ({onSubmit, loader}) => {
         <Button type="submit">
           <Loader loader={loader}></Loader>
           {!loader &&
-          <Span>Search</Span>
+            <Span>Search</Span>
           }
         </Button>
 
@@ -40,3 +40,8 @@ export const SearchForm = ({onSubmit, loader}) => {
     </Formik>
   );
 };
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  loader: PropTypes.bool,
+}

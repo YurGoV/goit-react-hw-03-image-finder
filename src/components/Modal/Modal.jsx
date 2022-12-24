@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Backdrop} from "./Modal.styled";
-import { createPortal } from 'react-dom';
+import {createPortal} from 'react-dom';
+import PropTypes from "prop-types";
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -33,9 +34,19 @@ export class Modal extends Component {
 
     return createPortal(
       <Backdrop onClick={this.onBackdropClick}>
-          {this.props.children}
-        </Backdrop>,
+        {this.props.children}
+      </Backdrop>,
       modalRoot,
     )
   }
 }
+
+Modal.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  closeModal: PropTypes.func.isRequired,
+}
+
+

@@ -6,6 +6,7 @@ import {ImageGallery} from "./ImageGallery/ImageGallery";
 import {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export const perPage = 12;
 
 export class App extends Component {
@@ -16,18 +17,18 @@ export class App extends Component {
     page: 1,
     totalImages: 0,
     loader: true,//todo: smallLoader
-    fetchError: '',//todo: !!!!!!!!!!!!!!!!!!!!!!!! не спрацьовує повертання на NaN - замінити початкове значення на ''.
+    fetchError: '',
   }
 
   async componentDidMount() {
 
     try {
       const response = await this.fetchImages(this.state.query, this.state.page, perPage);
-        this.setState({
-          queryResponse: response.hits,
-          totalImages: response.totalHits,
-          fetchError: '',
-        })
+      this.setState({
+        queryResponse: response.hits,
+        totalImages: response.totalHits,
+        fetchError: '',
+      })
     } catch (error) {
       if (this.state.fetchError !== '') {
         return
@@ -48,14 +49,14 @@ export class App extends Component {
       try {
         const response = await this.fetchImages(this.state.query, this.state.page, perPage);
 
-      if (response.hits.length === 0) {
-        return toast('Sorry, we couldn\'t find any images according to your request :(')
-      }
-      return this.setState({
-        queryResponse: response.hits,
-        totalImages: response.totalHits,
-        fetchError: '',
-      })
+        if (response.hits.length === 0) {
+          return toast('Sorry, we couldn\'t find any images according to your request :(')
+        }
+        return this.setState({
+          queryResponse: response.hits,
+          totalImages: response.totalHits,
+          fetchError: '',
+        })
       } catch (error) {
         this.setState({
           fetchError: error,
@@ -65,15 +66,15 @@ export class App extends Component {
           loader: false,
         })
       }
-
     }
+
     if (this.state.query === prevState.query && this.state.page !== prevState.page) {
       try {
         const response = await this.fetchImages(this.state.query, this.state.page, perPage);
-      return this.setState({
-        queryResponse: [...this.state.queryResponse, ...response.hits],
-        fetchError: '',
-      })
+        return this.setState({
+          queryResponse: [...this.state.queryResponse, ...response.hits],
+          fetchError: '',
+        })
       } catch (error) {
         this.setState({
           fetchError: error,
@@ -143,7 +144,10 @@ export class App extends Component {
           theme="light"
           transition={Zoom}
         />
+
       </Div>
     );
   };
 }
+
+
