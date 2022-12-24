@@ -5,6 +5,7 @@ import {Loader} from "../Loader/Loader";
 import {toast} from "react-toastify";
 import PropTypes from "prop-types";
 
+
 export const SearchForm = ({onSubmit, loader}) => {
 
   const onFormicSubmit = (values, {resetForm}) => {
