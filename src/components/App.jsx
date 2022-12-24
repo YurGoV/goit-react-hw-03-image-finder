@@ -21,33 +21,35 @@ export class App extends Component {
   }
 
   async componentDidMount() {
+    const {query, page, fetchError} = this.state;
 
     try {
-      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
+      const response = await this.fetchImages(query, page, perPage);
       this.setState({
         queryResponse: response.hits,
         totalImages: response.totalHits,
         fetchError: '',
       })
     } catch (error) {
-      if (this.state.fetchError !== '') {
+      if (fetchError !== '') {
         return
       }
       return this.setState({
         fetchError: error,
       })
     } finally {
-      if (this.state.fetchError !== '') {
+      if (fetchError !== '') {
         return
       }
     }
   }
 
   async componentDidUpdate(prevProps, prevState) {
+    const {query, page} = this.state;
 
     if (this.state.query !== prevState.query) {
       try {
-        const response = await this.fetchImages(this.state.query, this.state.page, perPage);
+        const response = await this.fetchImages(query, page, perPage);
 
         if (response.hits.length === 0) {
           return toast('Sorry, we couldn\'t find any images according to your request :(')
@@ -70,7 +72,7 @@ export class App extends Component {
 
     if (this.state.query === prevState.query && this.state.page !== prevState.page) {
       try {
-        const response = await this.fetchImages(this.state.query, this.state.page, perPage);
+        const response = await this.fetchImages(query, page, perPage);
         return this.setState({
           queryResponse: [...this.state.queryResponse, ...response.hits],
           fetchError: '',
@@ -87,20 +89,13 @@ export class App extends Component {
     }
   }
 
-  componentWillUnmount() {
-  }
-
   fetchImages = async (query, page, perPage) => {
 
     if (!this.state.loader) {
       this.loaderLoad(true);
     }
-
     const images = await getImages(query, page, perPage);
-
-
     this.loaderLoad(false);
-
     return await images;
   }
 

@@ -24,25 +24,26 @@ export class ImageGallery extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {//todo: тут встановлювати більшість статусів!!!
+    const {fetchError, images} = this.props;
 
-    if (this.props.fetchError !== '') {
+    if (fetchError !== '') {
       return toast('Sorry, something is wrong  :(')
     }
 
-    if (!this.props.images) {
+    if (!images) {
       this.setState({
         loading: false,
       })
     }
 
     if (prevProps.images !== this.props.images) {
-      if (this.props.images.length > 0) {//todo: more?
+      if (images.length > 0) {//todo: more?
         this.setState({
           loading: true,
           modal: true,//todo: ???
           status: 'pending',
         })
-      } else if (this.props.images.length === 0 && this.props.fetchError === '') {
+      } else if (images.length === 0 && fetchError === '') {
         if (!this.state.loading) {
           this.setState({
             status: 'empty',
@@ -52,22 +53,13 @@ export class ImageGallery extends Component {
     }
   }
 
-  //
-  // modalStatus = (value) => {//todo: refactoring//NO
-  //   if (!value) {
-  //     this.closeModal()
-  //   } else {
-  //     this.setState({
-  //       modal: value,
-  //     })
-  //   }
-  // }
 
   onClick = (value) => {
+    const {link, alt} = value.target.dataset;
 
-    const imageLink = value.target.dataset.link;
-    const imageAlt = value.target.dataset.alt
-    if (value.target.nodeName === 'IMG' && value.target.dataset.link) {
+    const imageLink = link;
+    const imageAlt = alt
+    if (value.target.nodeName === 'IMG' && link) {
       this.setState({
         modal: {link: imageLink, alt: imageAlt},
         modalLoader: true,//todo: status-pending?//NO. modalImage??
@@ -106,7 +98,7 @@ export class ImageGallery extends Component {
 
   render() {
     const {images, page} = this.props;
-    const {modal, imageOpacity, status, loading, modalImage} = this.state;
+    const {modal, modalLoader, imageOpacity, status, loading, modalImage} = this.state;
     const LoadMoreBtn = () => {
       const pages = Math.ceil(this.props.totalImages / perPage);
       return page < pages;
@@ -120,15 +112,15 @@ export class ImageGallery extends Component {
             && <Message>Sorry, we couldn't find any images according to your request :(</Message>}
 
           {status === 'pending'
-            && <Modal value={this.state.modal} closeModal={this.closeModal}>
-              <Loader loader={this.state.modalLoader} size={250}></Loader>
+            && <Modal value={modal} closeModal={this.closeModal}>
+              <Loader loader={modalLoader} size={250}></Loader>
             </Modal>}
 
           {modalImage
-            && <Modal value={this.state.modal} closeModal={this.closeModal}>
+            && <Modal value={modal} closeModal={this.closeModal}>
               <ModalContent opacityValue={imageOpacity}><img src={modal.link} onLoad={this.onImgLoaded}
                                                              alt={modal.alt}/></ModalContent>
-              <Loader loader={this.state.modalLoader} size={250}></Loader>
+              <Loader loader={modalLoader} size={250}></Loader>
             </Modal>
           }
 
