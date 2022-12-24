@@ -23,35 +23,30 @@ export class App extends Component {
 
     try {
       const response = await this.fetchImages(this.state.query, this.state.page, perPage);
-      // console.log(await response);
-      // if (response.hits.length > 0) {// todo: зайве? перевірити
         this.setState({
           queryResponse: response.hits,
           totalImages: response.totalHits,
           fetchError: '',
         })
-      // }
     } catch (error) {
-      this.setState({
+      if (this.state.fetchError !== '') {
+        return
+      }
+      return this.setState({
         fetchError: error,
       })
     } finally {
-      this.setState({
-        loader: false,
-      })
+      if (this.state.fetchError !== '') {
+        return
+      }
     }
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    // console.log(prevState.page);
-    // console.log(this.state.page);
-    //
-    // console.log(prevState.query);
-    // console.log(this.state.query);
 
     if (this.state.query !== prevState.query) {
       try {
-      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
+        const response = await this.fetchImages(this.state.query, this.state.page, perPage);
 
       if (response.hits.length === 0) {
         return toast('Sorry, we couldn\'t find any images according to your request :(')
@@ -74,8 +69,7 @@ export class App extends Component {
     }
     if (this.state.query === prevState.query && this.state.page !== prevState.page) {
       try {
-      const response = await this.fetchImages(this.state.query, this.state.page, perPage);
-      // const newImagesArr = () => {
+        const response = await this.fetchImages(this.state.query, this.state.page, perPage);
       return this.setState({
         queryResponse: [...this.state.queryResponse, ...response.hits],
         fetchError: '',
@@ -92,10 +86,10 @@ export class App extends Component {
     }
   }
 
+  componentWillUnmount() {
+  }
+
   fetchImages = async (query, page, perPage) => {
-    // console.log('test');
-    // console.log(query);
-    // console.log(this.state.queryResponse);
 
     if (!this.state.loader) {
       this.loaderLoad(true);
@@ -103,7 +97,6 @@ export class App extends Component {
 
     const images = await getImages(query, page, perPage);
 
-    // console.log(images);
 
     this.loaderLoad(false);
 

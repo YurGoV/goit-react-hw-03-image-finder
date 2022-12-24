@@ -8,8 +8,6 @@ import {toast} from "react-toastify";
 export const SearchForm = ({onSubmit, loader}) => {
 
   const onFormicSubmit = (values, {resetForm}) => {
-    console.log(values.query);
-    console.log(typeof onSubmit);
     if (values.query.trim() === '') {
       return toast('please input what you want to find')
     }
@@ -22,7 +20,6 @@ export const SearchForm = ({onSubmit, loader}) => {
     <Formik initialValues={{query: ''}} onSubmit={onFormicSubmit}>
 
       <Form>
-
         <Button type="submit">
           <Loader loader={loader}></Loader>
           {!loader &&
@@ -39,6 +36,7 @@ export const SearchForm = ({onSubmit, loader}) => {
           name="query"
         />
       </Form>
+
     </Formik>
   );
 };

@@ -13,45 +13,20 @@ background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
 ` ;
 
-
 export const ModalContent = styled.div`
-  //visibility: hidden;
+  display: flex;
   opacity: ${props => props.opacityValue === 0 ? 0 : 1};
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  //min-height: 70%;
-  max-height: 747px;
-  max-width: 996px;
-  width: 100%;
-  //object-fit: cover;
+  max-width: 1200px;
+  width: 75%;
   padding: 1px;
   background-color: white;
-  //background-color: background: rgba(0,0,0,0.5);
   border: 1px solid #3f51b5;
   border-radius: 3px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   transition: opacity 0.8s;
 `;
-
-export const ModalLoader = styled.div`
-  position: absolute;
-  top: 55%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  //min-height: 70%;
-  //max-height: 747px;
-  max-width: 500px;
-  width: 100%;
-  //object-fit: cover;
-  padding: 0;
-  background-color: transparent;
-  //background-color: background: rgba(0,0,0,0.5);
-  border: 0;
-  //border-radius: 3px;
-  //box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-  //0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-`;
-
